@@ -6,8 +6,8 @@ import {
   getUserById,
   deleteUser,
   createUser,
-  updateUser
-
+  updateUser,
+  addSingleBurnedCalories,
 } from "./user.services";
 
 export async function handleAllGetUsers(
@@ -114,3 +114,33 @@ export async function handleDeleteUser(
     return res.status(500).json(error);
   }
 }
+
+export async function handleNewCaloriesBurnedObjectArray(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) {
+  // const { id } = req.params;
+  const data = req.body;
+  const user = req.user;
+  console.log("hello");
+  try {
+    const UpdatedFavList = await addSingleBurnedCalories(
+      // id,
+       user?._id, data);
+    
+
+    return res.status(201).json(UpdatedFavList);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
+//for adding a new object wi the handleNewCaloriesBurnedObjectArray to the array you must use the patch method with this:
+// {
+//   "myWeight" : [
+//     {
+//       CaloriesBurned: String,
+//       date: Date,
+//     }
+//   ]
+// }

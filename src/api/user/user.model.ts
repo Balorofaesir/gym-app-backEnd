@@ -6,6 +6,7 @@ export interface UserDocument extends Document {
   userName: string;
   email: string;
   password: string; // 1234 -> hash - SHA256 -> 64 chars -> 32 bytes ->
+  myWeight: Array<object>;
   avatar?: string;
   role: 'USER' | 'ADMIN';
   isActive: boolean;
@@ -35,6 +36,16 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     min: 6,
+  },
+  myWeight: {
+    type: Array,
+    items: {
+      type: Object,
+      properties: {
+        CaloriesBurned: String,
+        date: Date,
+      },
+    },
   },
   avatar: {
     type: String,

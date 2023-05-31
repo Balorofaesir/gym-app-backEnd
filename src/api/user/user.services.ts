@@ -17,14 +17,14 @@ export function getUser(filter: FilterQuery<UserDocument>) {
 }
 
 export function createUser(
-  input: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt'>>
+  input: DocumentDefinition<Omit<UserDocument, "createdAt" | "updatedAt">>
 ) {
   return User.create(input);
 }
 
 export function updateUser(
   id: string,
-  user: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt'>>
+  user: DocumentDefinition<Omit<UserDocument, "createdAt" | "updatedAt">>
 ) {
   const updatedUser = User.findByIdAndUpdate(id, user, { new: true });
   return updatedUser;
@@ -33,4 +33,19 @@ export function updateUser(
 export function deleteUser(id: string) {
   const deletedUser = User.findByIdAndDelete(id);
   return deletedUser;
+}
+
+export function addSingleBurnedCalories(
+  // id: string,
+  createdBy: string,
+  data: object
+) {
+  return User.findOneAndUpdate(
+    {
+      // _id: id,
+      createdBy: createdBy,
+    },
+    { $push: data },
+    { new: true }
+  );
 }

@@ -9,6 +9,7 @@ import {
   handleGetUser,
   handleUpdateUser,
   handleGetMe,
+  handleNewCaloriesBurnedObjectArray
 } from './user.controller';
 
 const router = Router();
@@ -25,6 +26,8 @@ router.get('/me', isAuthenticated, handleGetMe);
 router.post('/', handleCreateUser);
 // PATCH /api/users/:id
 router.patch('/edit/:id', handleUpdateUser);
+// PATCH /api/users/add
+router.patch('/add/myWeight',isAuthenticated,handleNewCaloriesBurnedObjectArray);
 // DELETE /api/users/:id
 router.delete('/:id', isAuthenticated, handleDeleteUser);
 
