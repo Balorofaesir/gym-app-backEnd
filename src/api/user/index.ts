@@ -9,7 +9,8 @@ import {
   handleGetUser,
   handleUpdateUser,
   handleGetMe,
-  handleNewCaloriesBurnedObjectArray
+  handleNewCaloriesBurnedObjectArray,
+  handleGetIMC
 } from './user.controller';
 
 const router = Router();
@@ -18,8 +19,8 @@ const router = Router();
 
 // GET /api/users
 router.get('/', handleAllGetUsers);
-// GET /api/users/:id
-// router.get('/:id', handleGetUser);
+// GET /api/calculateIMC
+router.get('/calculateIMC', isAuthenticated, handleGetIMC);
 // POST /api/users/me
 router.get('/me', isAuthenticated, handleGetMe);
 // POST /api/users
@@ -27,7 +28,7 @@ router.post('/', handleCreateUser);
 // PATCH /api/users/:id
 router.patch('/edit/:id', handleUpdateUser);
 // PATCH /api/users/add
-router.patch('/add/myWeight',isAuthenticated,handleNewCaloriesBurnedObjectArray);
+router.patch('/add/myCaloriesBurnedRecord',isAuthenticated,handleNewCaloriesBurnedObjectArray);
 // DELETE /api/users/:id
 router.delete('/:id', isAuthenticated, handleDeleteUser);
 

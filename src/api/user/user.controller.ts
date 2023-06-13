@@ -127,8 +127,9 @@ export async function handleNewCaloriesBurnedObjectArray(
   try {
     const UpdatedFavList = await addSingleBurnedCalories(
       // id,
-       user?._id, data);
-    
+      user?._id,
+      data
+    );
 
     return res.status(201).json(UpdatedFavList);
   } catch (error) {
@@ -144,3 +145,25 @@ export async function handleNewCaloriesBurnedObjectArray(
 //     }
 //   ]
 // }
+export async function handleGetIMC(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const id = req.user?._id;
+  console.log("id:", id);
+  try {
+    const user = await getUserById(id);
+    // TODO: Search all info about user
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const calculation = user.weight / (user.height* user.height)
+    console.log(calculation);
+    return res.status(200).json({IMC: calculation});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
+  }
+}
