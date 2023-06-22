@@ -15,7 +15,7 @@ export async function handleAllGetUsers(
   res: Response,
   next: NextFunction
 ) {
-  console.log("Estoy en el siguiente middleware", req.body);
+  console.log("handleAllGetUsers", req.body);
   try {
     const users = await getAllUsers();
     return res.status(200).json(users);
@@ -83,18 +83,18 @@ export async function handleCreateUser(
 }
 
 export async function handleUpdateUser(
-  req: Request,
+  req: AuthRequest,
   res: Response,
   next: NextFunction
 ) {
-  const { id } = req.params;
+  const id = req.user?._id;
   const data = req.body;
   console.log(data);
 
   const user = await updateUser(id, data);
 
   if (!user) {
-    return res.status(404).json({ message: "cart not found" });
+    return res.status(404).json({ message: "user not found" });
   }
 
   return res.status(200).json(user);
@@ -154,14 +154,12 @@ export async function handleGetIMC(
   console.log("id:", id);
   try {
     const user = await getUserById(id);
-    // TODO: Search all info about user
-
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const calculation = user.weight / (user.height* user.height)
+    const calculation = user.weight / (user.height * user.height);
     console.log(calculation);
-    return res.status(200).json({IMC: calculation});
+    return res.status(200).json({ IMC: calculation });
   } catch (error) {
     console.error(error);
     return res.status(500).json(error);
