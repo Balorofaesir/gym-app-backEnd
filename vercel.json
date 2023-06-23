@@ -4,7 +4,21 @@
       {
         "src": "index.ts",
         "use": "@vercel/node",
-        "output": "dist"
+        "output": "dist",
+        "routes": [
+            {
+              "src": "/api/.*",
+              "dest": "dist/index.js"
+            },
+            {
+              "src": "/auth/.*",
+              "dest": "dist/index.js"
+            },
+            {
+              "src": "/.*",
+              "dest": "dist/index.js"
+            }
+          ]
       }
     ]
   }
