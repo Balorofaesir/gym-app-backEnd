@@ -25,7 +25,7 @@ router.get('/calculateIMC', isAuthenticated, handleGetIMC);
 router.get('/me', isAuthenticated, handleGetMe);
 // POST /api/users
 router.post('/', handleCreateUser);
-// PATCH /api/users/:me
+// PATCH /api/users/:mee
 router.patch('/edit/me',isAuthenticated,handleUpdateUser);
 // PATCH /api/users/add
 router.patch('/add/myCaloriesBurnedRecord',isAuthenticated,handleNewCaloriesBurnedObjectArray);
